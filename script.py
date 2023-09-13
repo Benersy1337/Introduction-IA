@@ -4,110 +4,41 @@ import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt
 
-########################################################
-#AULA 02
-########################################################
 
 ###Exploração dos dados
-poker_hand = pd.read_csv('poker-hand-testing.data')
+base_poker = pd.read_csv('poker-hand-testing.data')
 
-# base_credit.head(10)
+base_poker.head(10)
 
-# base_credit.tail(5)
+base_poker.tail(5)
 
-# base_credit.describe()
+base_poker.describe()
 
-# base_credit[base_credit['income']>=45331]
-
-# ###Visualizar os dados
-# np.unique(base_credit['default'], return_counts=True)
-
-# sns.countplot(x=base_credit['default'])
-
-# plt.hist(x=base_credit['HAND'])
-
-# plt.hist(x=base_credit['income'])
-
-# plt.hist(x=base_credit['loan'])
-
-# sns.pairplot(base_credit,vars=['age','income'],hue='default')
-
-# sns.pairplot(base_credit,vars=['age','income','loan'],hue='default')
-
-# ### Tratamento de dados inconsistentes
-# base_credit.loc[base_credit['age']<0]
-
-# #Apagar a coluna?
-# base_credit2 = base_credit.drop('age',axis=1)
-
-# #apagar somente as linhas com dados inconsistentes
-# base_credit[base_credit['age']<0].index
-
-# base_credit3 = base_credit.drop(base_credit[base_credit['age']<0].index)
-
-
-# #Preencher manualmente com valores médios
-# base_credit.mean()
-# base_credit['age'][base_credit['age'] > 0].mean()
-# base_credit.loc[base_credit['age'] < 0, 'age'] = 40.93
-
-# base_credit.loc[base_credit['age']<0]
-
-# ###Tratamento de valores nulos ou faltantes
-# base_credit.isnull().sum()
-
-# base_credit.loc[pd.isnull(base_credit['age']),'age'] = 40.93
-
-
-# ##Divisão do dataset entre previsores e classe
-# X_credit = base_credit.iloc[:,1:4].values
-# y_credit = base_credit.iloc[:,4].values
-
-# ###Escalonamento de valores
-# X_credit[:,0].min(), X_credit[:,1].min(), X_credit[:,2].min()
-# X_credit[:,0].max(), X_credit[:,1].max(), X_credit[:,2].max()
-
-# #normalização
-# from sklearn.preprocessing import MinMaxScaler
-# scaler_credit = MinMaxScaler()
-# X_credit = scaler_credit.fit_transform(X_credit)
-
-
-# #### Base de dados do censo
-
-# base_census = pd.read_csv('census.csv')
-
-# #Visualização de dados
-# sns.countplot(x=base_census['income'])
-
-# plt.hist(x=base_census['age'])
-
-# plt.hist(x=base_census['education-num'])
-
-# plt.hist(x=base_census['hour-per-week'])
-
-# import plotly.express as px
-
-# grafico = px.treemap(base_census, path=['workclass'])
-# grafico.write_html('grafico0.html')
-
-# grafico = px.treemap(base_census, path=['workclass','age'])
-# grafico.write_html('grafico1.html')
-
-
-# #grafico de categorias paralelas
-
-# grafico = px.parallel_categories(base_census, dimensions=['education','income'])
-# grafico.write_html('grafico2.html')
-
+base_poker[base_poker['HAND']==9]
 
 # #Pré-processamento
 # #Valores nulos
-# base_census.isnull().sum()
 
-# #Dividir previsores da classe
-# X_census = base_census.iloc[:,0:14].values
-# y_census = base_census.iloc[:,14].values
+base_poker.isnull().sum()
+
+# ##Divisão do dataset entre previsores e classe
+
+X_poker = base_poker.iloc[:,0:11].values
+
+y_poker = base_poker.iloc[:,10].values
+
+# ###Escalonamento de valores
+X_poker[:,0].min(), X_poker[:,1].min(), X_poker[:,2].min(),X_poker[:,3].min(),X_poker[:,4].min(),X_poker[:,5].min()
+X_poker[:,6].min(),X_poker[:,7].min(),X_poker[:,8].min(),X_poker[:,9].min(),X_poker[:,10].min()
+
+X_poker[:,0].max(), X_poker[:,1].max(), X_poker[:,2].max(),X_poker[:,3].max(),X_poker[:,4].max(),X_poker[:,5].max()
+X_poker[:,6].max(),X_poker[:,7].max(),X_poker[:,8].max(),X_poker[:,9].max(),X_poker[:,10].max()
+
+#normalização
+from sklearn.preprocessing import MinMaxScaler
+scaler_poker = MinMaxScaler()
+X_poker = scaler_poker.fit_transform(X_poker)
+
 
 # #Tratamento de valores categóricos
 # #Label encoder
@@ -124,99 +55,60 @@ poker_hand = pd.read_csv('poker-hand-testing.data')
 #     X_census[:,i] = label_encoder.fit_transform(X_census[:,i])
     
     
-    
-# ########################################################
-# #AULA 03
-# ########################################################
 
-# ### OneHotEncoder
-# #Carros
+#Divisão entre base de treinamento e testes
 
-# #Gol Pálio Corsa
-# # 0    1    2
+from sklearn.model_selection import train_test_split
 
-# #Gol    1   0  0
-# #Pálio  0   1  0
-# #Corsa  0   0  1
-
-# X_census = base_census.iloc[:,0:14].values
-
-# len(np.unique(base_census['workclass']))
-
-
-# indices = [1,3,5,6,7,8,9,13]
-
-# from sklearn.preprocessing import OneHotEncoder
-# from sklearn.compose import ColumnTransformer
-
-# onehotencoder_census = ColumnTransformer(transformers=[('OneHot',OneHotEncoder(),indices)],remainder='passthrough')
-
-# X_census = onehotencoder_census.fit_transform(X_census).toarray()
-
-# X_census.shape
-
-# #Escalonamento dos valores
-# from sklearn.preprocessing import StandardScaler
-# scaler_sensus = StandardScaler()
-
-# X_census = scaler_sensus.fit_transform(X_census)
-
-# #Divisão entre base de treinamento e testes
-
-# from sklearn.model_selection import train_test_split
-
-# X_census_treinamento, X_census_teste, y_census_treinamento, y_census_teste = train_test_split(X_census,y_census,test_size=0.25,random_state=0)
+X_poker_treinamento, X_poker_teste, y_poker_treinamento, y_poker_teste = train_test_split(X_poker,y_poker,test_size=0.25,random_state=0)
                                                                                               
-# X_credit_treinamento, X_credit_teste, y_credit_treinamento, y_credit_teste = train_test_split(X_credit,y_credit,test_size=0.25,random_state=0)
 
-# #Salvar variáveis
-# import pickle
+#Salvar variáveis
+import pickle
 
-# with open('census.pkl', mode='wb') as f:
-#     pickle.dump([X_census_treinamento, y_census_treinamento, X_census_teste,y_census_teste],f)
+with open('poker.pkl', mode='wb') as f:
+    pickle.dump([X_poker_treinamento, y_poker_treinamento, X_poker_teste,y_poker_teste],f)
     
-# with open('credit.pkl', mode='wb') as f:
-#     pickle.dump([X_credit_treinamento, y_credit_treinamento, X_credit_teste,y_credit_teste],f)
 
 
 # ###########NAIVE BAYES##############
 
 
-# import pickle
-# import pandas as pd
-# import numpy as np
-# from sklearn.naive_bayes import GaussianNB
+import pickle
+import pandas as pd
+import numpy as np
+from sklearn.naive_bayes import GaussianNB
 
-# with open('credit.pkl','rb') as f:
-#     X_credit_treinamento, y_credit_treinamento, X_credit_teste,y_credit_teste = pickle.load(f)
+with open('poker.pkl','rb') as f:
+    X_poker_treinamento, y_poker_treinamento, X_poker_teste,y_poker_teste = pickle.load(f)
 
-# naive_credit = GaussianNB()
+naive_poker = GaussianNB()
 
-# ####Aprendizado (Treinamento)####
-# naive_credit.fit(X_credit_treinamento, y_credit_treinamento)
+####Aprendizado (Treinamento)####
+naive_poker.fit(X_poker_treinamento, y_poker_treinamento)
 
-# ####Previsão###############
-# previsoes_credit = naive_credit.predict(X_credit_teste)
+####Previsão###############
+previsoes_poker = naive_poker.predict(X_poker_teste)
 
-# from sklearn.metrics import accuracy_score
+from sklearn.metrics import accuracy_score
 
-# accuracy_score(y_credit_teste, previsoes_credit)
-# #93%
+accuracy_score(y_poker_teste, previsoes_poker)
+#100%
 
-# from sklearn.metrics import confusion_matrix
+from sklearn.metrics import confusion_matrix
 
-# confusion_matrix(y_credit_teste, previsoes_credit)
+confusion_matrix(y_poker_teste, previsoes_poker)
 
-# from yellowbrick.classifier import ConfusionMatrix
-# #pip install yellowbrick
+from yellowbrick.classifier import ConfusionMatrix
+#pip install yellowbrick
 
-# cm = ConfusionMatrix(naive_credit)
-# cm.fit(X_credit_treinamento, y_credit_treinamento)
-# cm.score(X_credit_teste,y_credit_teste)
+cm = ConfusionMatrix(naive_poker)
+cm.fit(X_poker_treinamento, y_poker_treinamento)
+cm.score(X_poker_teste,y_poker_teste)
 
-# from sklearn.metrics import classification_report
+from sklearn.metrics import classification_report
 
-# classification_report(y_credit_teste, previsoes_credit)
+classification_report(y_credit_teste, previsoes_credit)
 
 
 # ## Base do census
