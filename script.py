@@ -111,267 +111,139 @@ from sklearn.metrics import classification_report
 classification_report(y_credit_teste, previsoes_credit)
 
 
-# ## Base do census
-
-# with open('census.pkl','rb') as f:
-#     X_census_treinamento, y_census_treinamento, X_census_teste,y_census_teste = pickle.load(f)
-
-# naive_census = GaussianNB()
-
-# ####Aprendizado (Treinamento)####
-# naive_census.fit(X_census_treinamento, y_census_treinamento)
-
-# ####Previsão###############
-# previsoes_census = naive_census.predict(X_census_teste)
-
-# from sklearn.metrics import accuracy_score
-
-# accuracy_score(y_census_teste, previsoes_census)
-# #47,967%
-
-# from sklearn.metrics import confusion_matrix
-
-# confusion_matrix(y_census_teste, previsoes_census)
-
-# from yellowbrick.classifier import ConfusionMatrix
-# #pip install yellowbrick
-
-# cm = ConfusionMatrix(naive_census)
-# cm.fit(X_census_treinamento, y_census_treinamento)
-# cm.score(X_census_teste,y_census_teste)
-
-# from sklearn.metrics import classification_report
-
-# classification_report(y_census_teste, previsoes_census)
-
 
 # ####ARVORES DE DECISAO#########################
-# from sklearn.tree import DecisionTreeClassifier
-
-# with open('credit.pkl','rb') as f:
-#     X_credit_treinamento, y_credit_treinamento, X_credit_teste,y_credit_teste = pickle.load(f)
-
-# dt_credit = DecisionTreeClassifier(criterion='entropy', random_state=0)
-
-# ####Aprendizado (Treinamento)####
-# dt_credit.fit(X_credit_treinamento, y_credit_treinamento)
-
-# ####Previsão###############
-# previsoes_credit = dt_credit.predict(X_credit_teste)
-
-# from sklearn.metrics import accuracy_score
-
-# accuracy_score(y_credit_teste, previsoes_credit)
-# #98.2%
-
-# from sklearn.metrics import confusion_matrix
-
-# confusion_matrix(y_credit_teste, previsoes_credit)
-
-# from yellowbrick.classifier import ConfusionMatrix
-# #pip install yellowbrick
-
-# cm = ConfusionMatrix(dt_credit)
-# cm.fit(X_credit_treinamento, y_credit_treinamento)
-# cm.score(X_credit_teste,y_credit_teste)
-
-# from sklearn.metrics import classification_report
-
-# classification_report(y_credit_teste, previsoes_credit)
-
-# ####Imprimir a arvore de decisão
-# from sklearn import tree
-# import matplotlib.pyplot as plt
-
-# previsores = ['income','age','loan']
-# classes = ['0','1']
-# fig, axes = plt.subplots(nrows=1, ncols=1, figsize = (20,20))
-# tree.plot_tree(dt_credit, feature_names=previsores, class_names=classes, filled=True)
-# fig.savefig('arvore_credit.png')
 
 
-# ## Base do census
+from sklearn.tree import DecisionTreeClassifier
 
-# with open('census.pkl','rb') as f:
-#     X_census_treinamento, y_census_treinamento, X_census_teste,y_census_teste = pickle.load(f)
+with open('poker.pkl','rb') as f:
+    X_poker_treinamento, y_poker_treinamento, X_poker_teste,y_poker_teste = pickle.load(f)
 
-# dt_census = DecisionTreeClassifier(criterion='entropy', random_state=0)
+dt_poker = DecisionTreeClassifier(criterion='entropy', random_state=0)
 
+####Aprendizado (Treinamento)####
+dt_poker.fit(X_poker_treinamento, y_poker_treinamento)
 
-# ####Aprendizado (Treinamento)####
-# dt_census.fit(X_census_treinamento, y_census_treinamento)
+####Previsão###############
+previsoes_poker = dt_poker.predict(X_poker_teste)
 
-# ####Previsão###############
-# previsoes_census = dt_census.predict(X_census_teste)
+from sklearn.metrics import accuracy_score
 
-# from sklearn.metrics import accuracy_score
+accuracy_score(y_poker_teste, previsoes_poker)
+#100%
 
-# accuracy_score(y_census_teste, previsoes_census)
-# #81,64%
+from sklearn.metrics import confusion_matrix
 
-# from sklearn.metrics import confusion_matrix
+confusion_matrix(y_poker_teste, previsoes_poker)
 
-# confusion_matrix(y_census_teste, previsoes_census)
+from yellowbrick.classifier import ConfusionMatrix
+#pip install yellowbrick
 
-# from yellowbrick.classifier import ConfusionMatrix
-# #pip install yellowbrick
+cm = ConfusionMatrix(dt_poker)
+cm.fit(X_poker_treinamento, y_poker_treinamento)
+cm.score(X_poker_teste,y_poker_teste)
 
-# cm = ConfusionMatrix(dt_census)
-# cm.fit(X_census_treinamento, y_census_treinamento)
-# cm.score(X_census_teste,y_census_teste)
+from sklearn.metrics import classification_report
 
-# from sklearn.metrics import classification_report
+classification_report(y_poker_teste, previsoes_poker)
 
-# classification_report(y_census_teste, previsoes_census)
+####Imprimir a arvore de decisão
+from sklearn import tree
+import matplotlib.pyplot as plt
+
+previsores = ['S1','C1','S2','C2','S3','C3','S4','C4','S5','C5']
+classes = ['0','1','2','3','4','5','6','7','8','9']
+fig, axes = plt.subplots(nrows=1, ncols=1, figsize = (100,100))
+tree.plot_tree(dt_poker, feature_names=previsores, class_names=classes, filled=True)
+fig.savefig('arvore_poker.png')
 
 
 
 # #####RANDOM FOREST############
 
-# from sklearn.ensemble import RandomForestClassifier
+from sklearn.ensemble import RandomForestClassifier
 
-# with open('credit.pkl','rb') as f:
-#     X_credit_treinamento, y_credit_treinamento, X_credit_teste,y_credit_teste = pickle.load(f)
+with open('poker.pkl','rb') as f:
+    X_poker_treinamento, y_poker_treinamento, X_poker_teste,y_poker_teste = pickle.load(f)
 
-# rf_credit = RandomForestClassifier(n_estimators=40,criterion='entropy', random_state=0)
+rf_poker = RandomForestClassifier(n_estimators=40,criterion='entropy', random_state=0)
 
-# ####Aprendizado (Treinamento)####
-# rf_credit.fit(X_credit_treinamento, y_credit_treinamento)
+####Aprendizado (Treinamento)####
+rf_poker.fit(X_poker_treinamento, y_poker_treinamento)
 
-# ####Previsão###############
-# previsoes_credit = rf_credit.predict(X_credit_teste)
+####Previsão###############
+previsoes_poker = rf_poker.predict(X_poker_teste)
 
-# from sklearn.metrics import accuracy_score
+from sklearn.metrics import accuracy_score
 
-# accuracy_score(y_credit_teste, previsoes_credit)
-# #98.4%
+accuracy_score(y_poker_teste, previsoes_poker)
+#99%
 
-# from sklearn.metrics import confusion_matrix
+from sklearn.metrics import confusion_matrix
 
-# confusion_matrix(y_credit_teste, previsoes_credit)
+confusion_matrix(y_poker_teste, previsoes_poker)
 
-# from yellowbrick.classifier import ConfusionMatrix
-# #pip install yellowbrick
+from yellowbrick.classifier import ConfusionMatrix
+#pip install yellowbrick
 
-# cm = ConfusionMatrix(rf_credit)
-# cm.fit(X_credit_treinamento, y_credit_treinamento)
-# cm.score(X_credit_teste,y_credit_teste)
+cm = ConfusionMatrix(rf_poker)
+cm.fit(X_poker_treinamento, y_poker_treinamento)
+cm.score(X_poker_teste,y_poker_teste)
+#99%
 
-# from sklearn.metrics import classification_report
+from sklearn.metrics import classification_report
 
-# classification_report(y_credit_teste, previsoes_credit)
-
-
-# ## Base do census
-
-# with open('census.pkl','rb') as f:
-#     X_census_treinamento, y_census_treinamento, X_census_teste,y_census_teste = pickle.load(f)
-
-# rf_census = RandomForestClassifier(n_estimators=40,criterion='entropy', random_state=0)
+classification_report(y_poker_teste, previsoes_poker)
 
 
-# ####Aprendizado (Treinamento)####
-# rf_census.fit(X_census_treinamento, y_census_treinamento)
 
-# ####Previsão###############
-# previsoes_census = rf_census.predict(X_census_teste)
 
-# from sklearn.metrics import accuracy_score
-
-# accuracy_score(y_census_teste, previsoes_census)
-# #84,92%
-
-# from sklearn.metrics import confusion_matrix
-
-# confusion_matrix(y_census_teste, previsoes_census)
-
-# from yellowbrick.classifier import ConfusionMatrix
-# #pip install yellowbrick
-
-# cm = ConfusionMatrix(rf_census)
-# cm.fit(X_census_treinamento, y_census_treinamento)
-# cm.score(X_census_teste,y_census_teste)
-
-# from sklearn.metrics import classification_report
-
-# classification_report(y_census_teste, previsoes_census)
-
-# ###################################################################
-# #
-# #
-# #  AULA 05
-# #
 # ####################################################################
 # #
 # # APRENDIZADO BASEADO EM INSTÂNCIAS - KNN
 # #
 # ####################################################################
 
-# from sklearn.neighbors import KNeighborsClassifier
+from sklearn.neighbors import KNeighborsClassifier
 
-# ###Base credit
-# import pickle
-# with open('credit.pkl','rb') as f:
-#     X_credit_treinamento, y_credit_treinamento, X_credit_teste,y_credit_teste = pickle.load(f)
+import pickle
+
+with open('poker.pkl','rb') as f:
+    X_poker_treinamento, y_poker_treinamento, X_poker_teste,y_poker_teste = pickle.load(f)
     
-# knn_credit = KNeighborsClassifier(n_neighbors=5)
-# knn_credit.fit(X_credit_treinamento, y_credit_treinamento)
+knn_poker = KNeighborsClassifier(n_neighbors=5)
+knn_poker.fit(X_poker_treinamento, y_poker_treinamento)
 
-# previsoes = knn_credit.predict(X_credit_teste)
+previsoes = knn_poker.predict(X_poker_teste)
 
-# from sklearn.metrics import accuracy_score
+from sklearn.metrics import accuracy_score
 
-# accuracy_score(y_credit_teste, previsoes)
+accuracy_score(y_poker_teste, previsoes)
 
-# #98,4%
+# processamento demorado
+#62%
 
-# from sklearn.metrics import confusion_matrix
+from sklearn.metrics import confusion_matrix
 
-# confusion_matrix(y_credit_teste, previsoes)
+confusion_matrix(y_poker_teste, previsoes)
 
-# from yellowbrick.classifier import ConfusionMatrix
-# #pip install yellowbrick
+from yellowbrick.classifier import ConfusionMatrix
+#pip install yellowbrick
 
-# cm = ConfusionMatrix(knn_credit)
-# cm.fit(X_credit_treinamento, y_credit_treinamento)
-# cm.score(X_credit_teste,y_credit_teste)
+cm = ConfusionMatrix(knn_poker)
+cm.fit(X_poker_treinamento, y_poker_treinamento)
+cm.score(X_poker_teste,y_poker_teste)
 
-# from sklearn.metrics import classification_report
+# processamento demorado
+#62%
 
-# classification_report(y_credit_teste, previsoes)
+from sklearn.metrics import classification_report
 
-# ### Base census
+classification_report(y_poker_teste, previsoes)
 
-# ###Base credit
-# import pickle
-# with open('census.pkl','rb') as f:
-#     X_census_treinamento, y_census_treinamento, X_census_teste,y_census_teste = pickle.load(f)
-    
-# knn_credit = KNeighborsClassifier(n_neighbors=10)
-# knn_credit.fit(X_census_treinamento, y_census_treinamento)
 
-# previsoes = knn_credit.predict(X_census_teste)
 
-# from sklearn.metrics import accuracy_score
-
-# accuracy_score(y_census_teste, previsoes)
-
-# #83,01
-
-# from sklearn.metrics import confusion_matrix
-
-# confusion_matrix(y_census_teste, previsoes)
-
-# from yellowbrick.classifier import ConfusionMatrix
-# #pip install yellowbrick
-
-# cm = ConfusionMatrix(knn_credit)
-# cm.fit(X_census_treinamento, y_census_treinamento)
-# cm.score(X_census_teste,y_census_teste)
-
-# from sklearn.metrics import classification_report
-
-# classification_report(y_census_teste, previsoes)
 
 # ################################################
 # #
@@ -379,138 +251,82 @@ classification_report(y_credit_teste, previsoes_credit)
 # #
 # ##################################################
 
-# from sklearn.svm import SVC
+from sklearn.svm import SVC
 
-# ###Base credit
-# import pickle
-# with open('credit.pkl','rb') as f:
-#     X_credit_treinamento, y_credit_treinamento, X_credit_teste,y_credit_teste = pickle.load(f)
+import pickle
+
+with open('poker.pkl','rb') as f:
+    X_poker_treinamento, y_poker_treinamento, X_poker_teste,y_poker_teste = pickle.load(f)
     
-# svm_credit = SVC(kernel='rbf', C=4, random_state=1)
-# svm_credit.fit(X_credit_treinamento, y_credit_treinamento)
+svm_poker = SVC(kernel='rbf', C=4, random_state=1)
+svm_poker.fit(X_poker_treinamento, y_poker_treinamento)
 
-# previsoes = svm_credit.predict(X_credit_teste)
+previsoes = svm_poker.predict(X_poker_teste)
 
-# from sklearn.metrics import accuracy_score
+from sklearn.metrics import accuracy_score
 
-# accuracy_score(y_credit_teste, previsoes)
+accuracy_score(y_poker_teste, previsoes)
 
-# #98,4%
+#98,4%
 
-# from sklearn.metrics import confusion_matrix
+from sklearn.metrics import confusion_matrix
 
-# confusion_matrix(y_credit_teste, previsoes)
+confusion_matrix(y_poker_teste, previsoes)
 
-# from yellowbrick.classifier import ConfusionMatrix
-# #pip install yellowbrick
+from yellowbrick.classifier import ConfusionMatrix
+#pip install yellowbrick
 
-# cm = ConfusionMatrix(svm_credit)
-# cm.fit(X_credit_treinamento, y_credit_treinamento)
-# cm.score(X_credit_teste,y_credit_teste)
+cm = ConfusionMatrix(svm_poker)
+cm.fit(X_poker_treinamento, y_poker_treinamento)
+cm.score(X_poker_teste,y_poker_teste)
 
-# from sklearn.metrics import classification_report
+from sklearn.metrics import classification_report
 
-# classification_report(y_credit_teste, previsoes)
+classification_report(y_poker_teste, previsoes)
 
-# ### Base census
-# import pickle
-# with open('census.pkl','rb') as f:
-#     X_census_treinamento, y_census_treinamento, X_census_teste,y_census_teste = pickle.load(f)
-    
-# svm_credit = SVC(kernel='rbf', C=4)
-# svm_credit.fit(X_census_treinamento, y_census_treinamento)
 
-# previsoes = svm_credit.predict(X_census_teste)
 
-# from sklearn.metrics import accuracy_score
-
-# accuracy_score(y_census_teste, previsoes)
-
-# #84,69
-
-# from sklearn.metrics import confusion_matrix
-
-# confusion_matrix(y_census_teste, previsoes)
-
-# from yellowbrick.classifier import ConfusionMatrix
-# #pip install yellowbrick
-
-# cm = ConfusionMatrix(svm_credit)
-# cm.fit(X_census_treinamento, y_census_treinamento)
-# cm.score(X_census_teste,y_census_teste)
-
-# from sklearn.metrics import classification_report
-
-# classification_report(y_census_teste, previsoes)
 
 # #######################################################################
 # #
 # # REDES NEURAIS
 # #
 # #######################################################################
-# from sklearn.neural_network import MLPClassifier
-
-# #Base credit data
-# import pickle
-# with open('credit.pkl','rb') as f:
-#     X_credit_treinamento, y_credit_treinamento, X_credit_teste,y_credit_teste = pickle.load(f)
-
-# rede_neural_credit = MLPClassifier(max_iter=1500, verbose=True, tol=0.0000001)
-# rede_neural_credit.fit(X_credit_treinamento, y_credit_treinamento)
-
-# previsoes = rede_neural_credit.predict(X_credit_teste)
-
-# from sklearn.metrics import accuracy_score
-
-# accuracy_score(y_credit_teste, previsoes)
-
-# #99,6%
-
-# from sklearn.metrics import confusion_matrix
-
-# confusion_matrix(y_credit_teste, previsoes)
-
-# from yellowbrick.classifier import ConfusionMatrix
-# #pip install yellowbrick
-
-# cm = ConfusionMatrix(rede_neural_credit)
-# cm.fit(X_credit_treinamento, y_credit_treinamento)
-# cm.score(X_credit_teste,y_credit_teste)
-
-# from sklearn.metrics import classification_report
-
-# classification_report(y_credit_teste, previsoes)
 
 
-# ### Base census
-# import pickle
-# with open('census.pkl','rb') as f:
-#     X_census_treinamento, y_census_treinamento, X_census_teste,y_census_teste = pickle.load(f)
-    
-# redes_neurais_credit = MLPClassifier(max_iter=1500, verbose=True, tol=0.00000000001)
-# redes_neurais_credit.fit(X_census_treinamento, y_census_treinamento)
+from sklearn.neural_network import MLPClassifier
 
+#Base credit data
+import pickle
+with open('poker.pkl','rb') as f:
+    X_poker_treinamento, y_poker_treinamento, X_poker_teste,y_poker_teste = pickle.load(f)
 
-# from sklearn.metrics import accuracy_score
+rede_neural_poker = MLPClassifier(max_iter=1500, verbose=True, tol=0.0000001)
+rede_neural_poker.fit(X_poker_treinamento, y_poker_treinamento)
 
-# accuracy_score(y_census_teste, previsoes)
+previsoes = rede_neural_poker.predict(X_poker_teste)
 
-# #82,72
+from sklearn.metrics import accuracy_score
 
-# from sklearn.metrics import confusion_matrix
+accuracy_score(y_poker_teste, previsoes)
 
-# confusion_matrix(y_census_teste, previsoes)
+#99,6%
 
-# from yellowbrick.classifier import ConfusionMatrix
-# #pip install yellowbrick
+from sklearn.metrics import confusion_matrix
 
-# cm = ConfusionMatrix(redes_neurais_credit)
-# cm.fit(X_census_treinamento, y_census_treinamento)
-# cm.score(X_census_teste,y_census_teste)
+confusion_matrix(y_poker_teste, previsoes)
 
-# from sklearn.metrics import classification_report
+from yellowbrick.classifier import ConfusionMatrix
+#pip install yellowbrick
 
-# classification_report(y_census_teste, previsoes)
+cm = ConfusionMatrix(rede_neural_poker)
+cm.fit(X_poker_treinamento, y_poker_treinamento)
+cm.score(X_poker_teste,y_poker_teste)
+
+from sklearn.metrics import classification_report
+
+classification_report(y_poker_teste, previsoes)
+
 
 
 
